@@ -1,37 +1,91 @@
 <% layout('../layout/templateLTE') %>
 <% block('titulo1', "Ventas") -%>
 <% block('titulo2', "Nuevo") -%>
-<h1> Ventas  </h1>
-cliente
-<input type="text" name="cliente" id="">
-cliente seleccionado
-juan 
-productos:
-<div>
-    producto
-<select>
-    <option></option>
-</select>
-    precio
-    55
-    cantidad
-    <input type="number"  id="">
-    <button>agregar</button>
 
-    <div>
-        <table>
-            <tr>
-                <th>producto</th>
-                <th>precio</th>
-                <th>cant</th>
-                <th>importe</th>
-            </tr>
-        </table>
+<div ng-app="super_venta" ng-controller="ventas">
+
+    <h1> Ventas  </h1>
+    dice:{{ejemplo}}
+
+    cliente
+    <input type="text" name="cliente" id="">
+    cliente seleccionado
+    juan 
+    productos:
+    <div ng-init="listaproducto =<%=
+    JSON.stringify([
+        {id:1,codigo:0212120,nombre:'coca cola', cant:10,precio:5.5},
+        {id:2,codigo:45469,nombre:'cola', cant:10,precio:5},
+        {id:3,codigo:123,nombre:'coca', cant:50,precio:7},
+        {id:4,codigo:234,nombre:'mani', cant:15,precio:2.5},
+        {id:5,codigo:345,nombre:'papa', cant:20,precio:3},
+        {id:6,codigo:456,nombre:'galletas', cant:15,precio:6}
+
+    ])
+    %>">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Quick Example</h3>
+        </div>
+        producto
+    <select class="form-control"  ng-model="producto" ng-options=" dato as dato.codigo  for dato in listaproducto track by dato.id" >
+        <option ></option>
+    </select>
+        producto{{producto.nombre}}
+        precio
+        {{producto.precio|number:2}}
+        cantidad
+        
+        <input class="form-control" type="number" step="0.01" min="1" max="{{producto.cant}}"  ng-model="cant"  id="">
+        <strong>{{cant*producto.precio}}Bs.</strong>
+        <button ng-click="agregar()" >agregar</button>
+</div>
+        <div>
+            <table class="table table-bordere">
+                <tr>
+                    <th>producto</th>
+                    <th>precio</th>
+                    <th>cant</th>
+                    <th>importe</th>
+                </tr>
+                <tr ng-repeat="item in carrito" >
+                    <td>{{item.producto.nombre}}</td>
+                    <td>{{item.precio}}</td>
+                    <td>{{item.cant}}</td>
+                    <td>{{item.cant*item.precio}}</td>
+                    <td><button ng-click="confirmar(item)"  data-toggle="modal" data-target="#modal-default" ><i class="far fa-times-circle"></i></button> </td>
+                </tr>
+            </table>
+
+        </div>
 
     </div>
+    <div>
+        total Bs.:{{total}}
+    </div>
+    <input type="submit" value="realizar Venta">
 
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Confirmar Borrar</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Esta seguro de borrar el producto del carrito&hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+              <button type="button" class="btn btn-primary" ng-click="confirmadoBorrar()"  data-dismiss="modal">Si</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
 </div>
-<div>
-    total Bs.:555555
-</div>
-<input type="submit" value="realizar Venta">
+
