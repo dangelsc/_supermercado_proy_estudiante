@@ -1,22 +1,25 @@
 var cone= require("../config/conexiondbmongo");
 var mongoose = require("mongoose");
 const schema = new mongoose.Schema(
-    {   cliente: 'string', 
-        nit: 'string',
+    {   cliente: String, 
+        nit: String,
         fecha: Date,
         total:Number,
         codigocontrol:String,
         detalle:[
             {
                 producto:{
-                    type:mongoose.Schema.Types.ObjectId,
-                    ref:'producto'
+                    type:String
+                    //type:mongoose.Schema.Types.ObjectId,
+                    //ref:'producto'
                 },
                 cant:Number,
                 precio:Number,
                 importe:Number
             }
         ]
+    },{
+    collection:'venta'
     }
     );
 module.exports = mongoose.model('venta', schema);

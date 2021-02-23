@@ -6,31 +6,27 @@
 <form action="/venta/nuevo" method="post">
 <div ng-app="super_venta" ng-controller="ventas">
 
+    <div style="color: red;">
+    <%=error%></div>
     <h1> Ventas  </h1>
     dice:{{ejemplo}}
 
     cliente
-    <input type="text" name="cliente" id="">
+    <input type="text" name="bbuscarcliente" id="">
     cliente seleccionado
-    juan 
+    <input type="text" name="cliente" id="">
+    <input type="text" name="nit" id="">
     productos:
-    <div ng-init="listaproducto =<%=
-    JSON.stringify([
-        {id:1,codigo:010,nombre:'coca cola', cant:10,precio:5.5},
-        {id:2,codigo:469,nombre:'cola111', cant:10,precio:5},
-        {id:3,codigo:123,nombre:'coca222', cant:50,precio:7},
-        {id:4,codigo:234,nombre:'mani', cant:15,precio:2.5},
-        {id:5,codigo:345,nombre:'papa', cant:20,precio:3},
-        {id:6,codigo:456,nombre:'galletas', cant:15,precio:6}
 
-    ])
-    %>">
+    <div  ng-init="iniciar('<%= msg %>');listaproducto =<%=JSON.stringify(listaproducto)%>">
     <div class="card card-primary">
         <div class="card-header">
           <h3 class="card-title">Quick Example</h3>
         </div>
         producto
-    <select class="form-control" id="prod"  ng-model="producto" ng-options=" dato as dato.codigo  for dato in listaproducto track by dato.id" >
+    <select class="form-control" id="prod"  
+    ng-model="producto" 
+    ng-options=" dato as dato.codigobarra  for dato in listaproducto track by dato._id" >
         <option ></option>
     </select>
         producto:{{producto.nombre}}
@@ -58,7 +54,7 @@
                     <td>{{item.precio|number:2}}</td>
                     <td>{{item.cant|number:2}}</td>
                     <td>{{item.cant*item.precio|number:2}}</td>
-                    <td><button ng-click="confirmar(item)"  data-toggle="modal" data-target="#modal-default" ><i class="far fa-times-circle"></i></button> </td>
+                    <td><button type="button" ng-click="confirmar(item)"  data-toggle="modal" data-target="#modal-default" ><i class="far fa-times-circle"></i></button> </td>
                 </tr>
             </table>
 

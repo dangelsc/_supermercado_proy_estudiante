@@ -4,6 +4,7 @@
 angular.module('super_venta',[])
     .controller('ventas',function($scope){
         $scope.carrito=[];
+        listadetalle=[];
         $scope.ejemplo="este dato desde codigo"
         $scope.total=0;
         var Toast = Swal.mixin({
@@ -12,7 +13,6 @@ angular.module('super_venta',[])
             showConfirmButton: false,
             timer: 3000
           });
-          
         
           hotkeys('f2,f4,f5', function (event, handler){
             switch (handler.key) {
@@ -37,23 +37,58 @@ angular.module('super_venta',[])
                 $scope.total+=$scope.carrito[i].cant*$scope.carrito[i].precio;
             }
         }
+        $scope.iniciar=function(msg){
+          
+          if(msg){
+            console.log("msg",msg);
+            Toast.fire({
+              icon: 'success',
+              title: msg
+            })
+            //toastr.success(
+            //  msg)
+          }
+        }
         $scope.agregar=function(){
            
 
             if($scope.cant<=$scope.producto.cant){
+                console.log("carrito",$scope.carrito);
+                console.log("lista",$scope.producto);
                 let pro=$scope.carrito.find(elemt=>elemt.producto.codigo==$scope.producto.codigo);
-                
+                console.log(pro);
                 if(pro!==undefined ){
-                    
+                    console.log("si encontro")
                     pro.cant+=$scope.cant;
+                    //let pro_envio=listadetalle.find(elemt=>elemt.producto==$scope.producto._id);
+                    //pro_envio.cant+$scope.cant;
                 }else{
+                  console.log("NOOOO encontro")
                     $scope.carrito.push({
                         producto:$scope.producto,
                         precio:$scope.producto.precio,
                         cant:$scope.cant
                     });
+                    /*listadetalle.push({
+                      producto:$scope.producto._id,
+                      precio:$scope.producto.precio,
+                      cant:$scope.cant
+                  });*/
                 }
-                $scope.detalle_lista=JSON.stringify($scope.carrito);
+                /**************************/
+                listadetalle=[];
+                for(i=0;i<$scope.carrito.length;i++){
+                  listadetalle.push({
+                    producto:$scope.carrito[i].producto._id,
+                    precio:$scope.carrito[i].producto.precio,
+                    cant:$scope.carrito[i].cant
+                  });
+                }
+                
+                
+                console.log(listadetalle);
+                $scope.detalle_lista=JSON.stringify(listadetalle);
+                /***************************/
                 console.log(pro);
                 let actualizarProducto=$scope.listaproducto.find(elemt=>elemt.codigo==$scope.producto.codigo);
                 actualizarProducto.cant-=$scope.cant;
