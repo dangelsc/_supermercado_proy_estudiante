@@ -23,12 +23,6 @@ module.exports={
             session.startTransaction();
             let dato=await n.save();
             for(i=0;i<req.body.detalle.length;i++){
-       /*         nombre: String, 
-        cantidad: Number,
-        marca: String,
-        precio:Number,
-        codigocontrol:String
-    }*/
                 let prod=await Producto.findById(req.body.detalle[i].producto);
                 console.log(prod);
                 prod.cant=Number(prod.cant)-Number(req.body.detalle[i].cant);

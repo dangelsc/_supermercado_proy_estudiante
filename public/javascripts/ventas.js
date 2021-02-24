@@ -13,6 +13,9 @@ angular.module('super_venta',[])
             showConfirmButton: false,
             timer: 3000
           });
+          
+           
+        
         
           hotkeys('f2,f4,f5', function (event, handler){
             switch (handler.key) {
@@ -55,8 +58,8 @@ angular.module('super_venta',[])
             if($scope.cant<=$scope.producto.cant){
                 console.log("carrito",$scope.carrito);
                 console.log("lista",$scope.producto);
-                let pro=$scope.carrito.find(elemt=>elemt.producto.codigo==$scope.producto.codigo);
-                console.log(pro);
+                let pro=$scope.carrito.find(elemt=>elemt.producto.codigobarra==$scope.producto.codigobarra);
+                console.log("buscado",pro);
                 if(pro!==undefined ){
                     console.log("si encontro")
                     pro.cant+=$scope.cant;
@@ -90,10 +93,12 @@ angular.module('super_venta',[])
                 $scope.detalle_lista=JSON.stringify(listadetalle);
                 /***************************/
                 console.log(pro);
-                let actualizarProducto=$scope.listaproducto.find(elemt=>elemt.codigo==$scope.producto.codigo);
+                let actualizarProducto=$scope.listaproducto.find(elemt=>elemt.codigobarra==$scope.producto.codigobarra);
                 actualizarProducto.cant-=$scope.cant;
                 $scope.producto.cant=actualizarProducto.cant;
                 sumarProductos();
+                $scope.cant=1;
+                //$scope.producto.focus();
             }else
             Toast.fire({
                 icon: 'warning',
