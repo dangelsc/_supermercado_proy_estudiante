@@ -5,7 +5,13 @@ module.exports={
     buscar:async function(req,res,next){
         let q={estado:1};
         if(req.body.buscar){
-            q.cliente={$regex:req.body.buscar};
+            q={
+                estado:1,
+                $or:[
+                {cliente:{$regex:req.body.buscar}},
+                {nit:{$regex:req.body.buscar}},
+                ]
+            }
         }
         let listacliente= await Cliente.find(q);
         console.log(listacliente);
