@@ -6,12 +6,16 @@ const schema = new mongoose.Schema(
         fecha: Date,
         total:Number,
         codigocontrol:String,
+        empleado:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'empleado'
+        },
         detalle:[
             {
                 producto:{
-                    type:String
-                    //type:mongoose.Schema.Types.ObjectId,
-                    //ref:'producto'
+                    //type:String
+                    type:mongoose.Schema.Types.ObjectId,
+                    ref:'producto'
                 },
                 cant:Number,
                 precio:Number,

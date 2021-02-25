@@ -13,10 +13,16 @@ module.exports={
             });
 
     },
+    //
+//   passport  ->google, fcebook,... ,redes sociales,local
+//  sessiones -> 
+    ///
     nuevo:async function(req,res,next){
         console.log(req.body);
         let listaproducto= await Producto.find({estado:1});
         req.body.detalle=JSON.parse(req.body.detalle);
+        
+        req.body.empleado=req.user._id;//req.session.user;
         let n=new Venta(req.body);
         try{
             const session = await mongoose.startSession();
