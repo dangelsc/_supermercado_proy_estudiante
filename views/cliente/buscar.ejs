@@ -21,7 +21,30 @@
        <td><%= listacliente[i].nit%> </td>
    </tr>
    <% } %>
+   
+   </tr>
 </table>
+<div class="card-footer clearfix">
+    <ul class="pagination pagination-sm m-0 float-right">
+        <% if(actualpage!=1){%>
+        <li class="page-item"><a class="page-link" href="?page=<%= Number(actualpage)-1 %>&limit=<%=limit%>">«</a></li>
+        <%}%>
+           <% for(i=1;i<=totalpage;i++){
+               if(i==actualpage){
+                %>
+                
+                <li class="page-item"><a class="page-link" ><%=i%></a></li>
+                <%}else{%>
+                     <li class="page-item"><a class="page-link" href="?page=<%=i%>&limit=<%=limit%>"><%=i%></a></li>
+                <%}%>
+           <% }%>
+           <% if(actualpage!=totalpage){%>
+            <li class="page-item"><a class="page-link" href="?page=<%= Number(actualpage)+1 %>&limit=<%=limit%>">»</a></li>
+            <%}%>
+           
+ </ul>
+</div>
+<%=actualpage%>/<%=totalpage%>
 
 
 

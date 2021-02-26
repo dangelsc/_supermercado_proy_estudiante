@@ -13,8 +13,15 @@ module.exports={
                 ]
             }
         }
-        let listacliente= await Cliente.find(q);
+        //? page=1&limit=2
+        const {page=1,limit=2} = req.query;
+
+        let listacliente= await Cliente.find(q)
+        .limit(Number(limit))
+        .skip((Number(page)-1)*Number(limit)).exec();
+        const count=await Cliente.countDocuments();
         console.log(listacliente);
+
         if(req.body.pdf){
             let doc="Informer1_.pdf"
             Informes.informe1(listacliente,req.body.buscar,doc,res);
@@ -25,6 +32,9 @@ module.exports={
                 msg:req.query.msg===undefined?null:req.query.msg,
                 listacliente:listacliente,
                 buscar:req.body.buscar?req.body.buscar:'',
+                totalpage:Math.ceil(count/limit),
+                actualpage:page,
+                limit:limit,
                 error:''
             });
         

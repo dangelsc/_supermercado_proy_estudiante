@@ -130,6 +130,7 @@ table {
             <tr>`;
         }
         html+=`</table>
+        
         </body>
 </html>
         `;    
