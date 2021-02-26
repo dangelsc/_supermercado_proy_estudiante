@@ -5,8 +5,9 @@
 <% block('titulo2', "Lista") -%>
 
 <form action="/cliente/buscar" method="post">
-    <input type="text" name="buscar">
+    <input type="text" value="<%=buscar%>"  name="buscar">
     <input type="submit" value="buscar">
+    <input type="submit" name="pdf" value="pdf">
 </form>
 <table class="table">
     <tr>
@@ -21,3 +22,6 @@
    </tr>
    <% } %>
 </table>
+
+
+
